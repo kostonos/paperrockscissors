@@ -9,10 +9,47 @@
     <script>
 
         function getComputerChoice() {
-            const computerOptions = ["Rock", "Paper", "Scissors"];
+            const computerOptions = ["rock", "paper", "scissors"];
             let computerChoice = Math.floor(Math.random() * computerOptions.length);
             return computerOptions[computerChoice];
         }
+
+        function playRound(playerSelection, computerChoice) {
+            let playerChoice = playerSelection.toLowerCase();
+            if (playerChoice === computerChoice) {
+                return ("it is a tie!")
+            }
+            if (playerChoice === "rock" ) {
+                if(computerChoice === "scissors") {
+                    return "Player wins!";
+                } else {
+                    return "Computer wins!";
+                }
+            }
+            if (playerChoice === "scissors") {
+                if(computerChoice === "paper") {
+                    return "Player wins!";
+                } else {
+                    return "Computer wins!";
+                }
+
+            }
+
+            if (playerChoice === "paper") {
+                if(computerChoice === "rock") {
+                    return "Player wins!";
+                } else {
+                    return "Computer wins!";
+                }
+            }
+
+
+        }
+
+        const playerSelection = "rock";
+        const computerSelection = getComputerChoice();
+
+        console.log(playRound(playerSelection, computerSelection));
 
         console.log(getComputerChoice())
     </script>
