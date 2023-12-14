@@ -6,10 +6,22 @@
     <title>Document</title>
 </head>
 <body>
+    <div id = "container">
+        <button id="paper">Paper</button>
+        <button id="rock">Rock</button>
+        <button id="scissors">Scissors</button>
+        <h2 id="scoreboard">Player: 0 Computer: 0</h2>
+    </div>
+
     <script>
 
         let playerScore = 0;
         let computerScore = 0;
+        let game = 0;
+
+        const buttons = document.querySelectorAll("button");
+        const container = document.querySelector("#container");
+        const scoreboard = document.querySelector("#scoreboard")
 
         function getComputerChoice() {
             const computerOptions = ["rock", "paper", "scissors"];
@@ -17,26 +29,30 @@
             return computerOptions[computerChoice];
         }
 
-        function playRound(playerSelection, computerChoice) {
-            let playerChoice = playerSelection.toLowerCase();
+        function playRound(playerChoice, computerChoice) {
             if (playerChoice === computerChoice) {
-                return ("it is a tie!")
+                return ("It is a tie!")
             }
             if (playerChoice === "rock" ) {
                 if(computerChoice === "scissors") {
                     playerScore += 1;
+                    scoreboard.textContent = `Player: ${playerScore} Computer: ${computerScore}`;
                     return "Player wins!";
+                    
                 } else {
                     computerScore += 1;
+                    scoreboard.textContent = `Player: ${playerScore} Computer: ${computerScore}`;
                     return "Computer wins!";
                 }
             }
             if (playerChoice === "scissors") {
                 if(computerChoice === "paper") {
                     playerScore += 1;
+                    scoreboard.textContent = `Player: ${playerScore} Computer: ${computerScore}`;
                     return "Player wins!";
                 } else {
                     computerScore += 1;
+                    scoreboard.textContent = `Player: ${playerScore} Computer: ${computerScore}`;
                     return "Computer wins!";
                 }
 
@@ -45,9 +61,11 @@
             if (playerChoice === "paper") {
                 if(computerChoice === "rock") {
                     playerScore += 1;
+                    scoreboard.textContent = `Player: ${playerScore} Computer: ${computerScore}`;
                     return "Player wins!";
                 } else {
                     computerScore += 1;
+                    scoreboard.textContent = `Player: ${playerScore} Computer: ${computerScore}`;
                     return "Computer wins!";
                 }
             }
@@ -59,27 +77,45 @@
 
         }
 
-
-        function game() {
-            let game = 0;
-            while (game < 5) {
-                let computerSelection = getComputerChoice();
-                let playerSelection = prompt("Choose paper, rock or scissors")
-                console.log(`Player choice: ${playerSelection}`);
-                console.log(`Computer choice: ${computerSelection}`)
-                console.log(playRound(playerSelection, computerSelection));
+        
+        
+        buttons.forEach((button) => {
+            button.addEventListener("click", () => {
+                if(playerScore == 5 || computerScore == 5) {
+                    score(game);
+                    playerScore = 0;
+                    computerScore = 0;
+                } else {
+                    let computerChoice = getComputerChoice();
+                    console.log(`Komputer wybral : ${computerChoice}`);
+                    console.log(`Player wybral : ${button.id}`);
+                    let text = playRound(button.id, computerChoice);
+                    const div = document.createElement("div");
+                    div.textContent = text;
+                    container.appendChild(div);
+                };
                 
-                game += 1;
-            }
-            if (playerScore > computerScore) {
-                console.log(`You win the game! Player: ${playerScore} : Computer: ${computerScore}`);
-            } else {
-                console.log(`Computer won the game! Player: ${playerScore} : Computer: ${computerScore}`)
-            }
-        }
+            })
+        });
 
-        game();
+        function score(game) {
+                if(playerScore > computerScore) {
+                    const h1 = document.createElement("h1");
+                    h1.textContent = "Player WON";
+                    container.appendChild(h1);
+                } else if(computerScore > playerScore){
+                    const h1 = document.createElement("h1");
+                    h1.textContent = "Computer WON";
+                    container.appendChild(h1);
+                } else {
+                    const h1 = document.createElement("h1");
+                    h1.textContent = "It is a TIE";
+                    container.appendChild(h1);
+                }
+            
+        }
 
     </script>
 </body>
 </html> 
+
